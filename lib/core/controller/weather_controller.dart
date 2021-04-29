@@ -1,6 +1,7 @@
 import 'package:degrees/core/model/api/api_response.dart';
 import 'package:degrees/core/model/weather_api/weather_info.dart';
 import 'package:degrees/core/utils/constants.dart';
+import 'package:degrees/core/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,8 +19,9 @@ class WeatherController extends GetxController {
   }
 
   @override
-  void onInit() {
-    fetchWeatherFor("Kathmandu");
+  void onInit() async {
+    var connected = await Utilities.isInternetWorking();
+    if (connected) fetchWeatherFor("Kathmandu");
     super.onInit();
   }
 

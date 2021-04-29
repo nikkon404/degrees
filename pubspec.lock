@@ -111,6 +111,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_flexible_toast:
+    dependency: "direct main"
+    description:
+      name: flutter_flexible_toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter

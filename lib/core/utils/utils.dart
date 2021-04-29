@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 
 class Utilities {
   static Future<bool> isInternetWorking() async {
@@ -36,6 +37,39 @@ class Utilities {
     }
 
     return condition1 & condition2;
+  }
+
+  static void showInToast(String message,
+      {ToastType toastType, int toastPos = 2}) {
+    FlutterFlexibleToast.cancel();
+    FlutterFlexibleToast.showToast(
+        message: " " + message,
+        toastLength: Toast.LENGTH_SHORT,
+        toastGravity: toastPos == 2
+            ? ToastGravity.BOTTOM
+            : toastPos == 1
+                ? ToastGravity.CENTER
+                : ToastGravity.TOP,
+        icon: toastType == null
+            ? null
+            : toastType == ToastType.ERROR
+                ? ICON.ERROR
+                : toastType == ToastType.INFO
+                    ? ICON.INFO
+                    : ICON.SUCCESS,
+        radius: 12,
+        elevation: 10,
+        imageSize: 35,
+        textColor: Colors.white,
+        fontSize: 14,
+        backgroundColor: toastType == null
+            ? Colors.black
+            : toastType == ToastType.ERROR
+                ? Colors.red
+                : toastType == ToastType.INFO
+                    ? Colors.blue
+                    : Colors.green,
+        timeInSeconds: 2);
   }
 
   static showPlatformSpecificAlert(
