@@ -8,3 +8,7 @@ class APIURLs {
   static final String endpoint = '/data/2.5/weather';
   static final String iconPrefix = 'http://openweathermap.org/img/w/';
 }
+
+class Assets {
+  static final String appIcon = 'assets/app_icon.png';
+}
