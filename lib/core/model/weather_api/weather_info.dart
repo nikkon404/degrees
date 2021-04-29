@@ -6,6 +6,7 @@ import 'clouds.dart';
 import 'sys.dart';
 
 class WeatherData {
+  String cityName;
   List<Weather> weather;
   Primary primary;
   int visibility;
@@ -43,6 +44,7 @@ class WeatherData {
     dt = json['dt'];
     sys = json['sys'] != null ? new Sys.fromJson(json['sys']) : null;
     timezone = json['timezone'];
+    cityName = json['name'];
   }
 
   Map<String, dynamic> toJson() {

@@ -1,4 +1,4 @@
-import 'package:degrees/view/home_page.dart';
+import 'package:degrees/view/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

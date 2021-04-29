@@ -6,12 +6,28 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class WeatherController extends GetxController {
-  Future<ApiResponse<WeatherData>> getWeatherData(String cityName) async {
-    var params = {
-      "q": cityName,
-      "appid": Constants.apiKey,
-      "units": "metric",
-    };
+  ApiResponse<WeatherData> _weatherData;
+  ApiResponse<WeatherData> get data => _weatherData;
+
+  bool _loading = false;
+  bool get isloading => _loading;
+
+  _setLoading(bool val) {
+    _loading = val;
+    update();
+  }
+
+  @override
+  void onInit() {
+    fetchWeatherFor("Kathmandu");
+    super.onInit();
+  }
+
+  ///Fetch weather data from Open Weather APi
+  void fetchWeatherFor(String cityName) async {
+    _setLoading(true);
+    var params = {"q": cityName, "appid": Constants.API_KEY, "units": "metric"};
+
     Uri uri = Uri.https(APIURLs.mainUrl, APIURLs.endpoint, params);
     print(uri);
     try {
@@ -19,16 +35,18 @@ class WeatherController extends GetxController {
       Map<String, dynamic> jsonObj = json.decode(apiResp.body);
 
       if (apiResp.statusCode == 200) {
-        print(jsonObj);
-        return ApiResponse(false, 'Weather Data for $cityName fetched.',
+        _weatherData = ApiResponse(true, 'Weather Data for $cityName fetched.',
             WeatherData.fromJson(jsonObj));
+        print(_weatherData.response.toJson());
       } else {
         print(apiResp.body);
-        return ApiResponse(false, jsonObj['message'], null);
+        _weatherData = ApiResponse(false, jsonObj['message'], null);
       }
+      _setLoading(false);
     } catch (e) {
-      print(e.message);
-      return ApiResponse(false, e.message, null);
+      print(e.stackTrace);
+      _weatherData = ApiResponse(false, e.toString(), null);
+      _setLoading(false);
     }
   }
 }
