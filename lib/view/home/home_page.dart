@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
           title: TextField(
             onSubmitted: _search,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.location_city),
+              prefixIcon: Hero(tag: 'icon', child: Icon(Icons.location_city)),
               labelText: 'City Name',
             ),
             controller: _searchController,
