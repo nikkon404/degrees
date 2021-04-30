@@ -1,17 +1,20 @@
-
 class Sys {
   int type;
   String country;
-  int sunrise;
-  int sunset;
+  DateTime sunrise;
+  DateTime sunset;
 
   Sys({this.type, this.country, this.sunrise, this.sunset});
 
   Sys.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     country = json['country'];
-    sunrise = json['sunrise'];
-    sunset = json['sunset'];
+    sunrise = (json['sunrise']) != null
+        ? DateTime.fromMillisecondsSinceEpoch(json['sunrise'] * 1000)
+        : null;
+    sunset = (json['sunset']) != null
+        ? DateTime.fromMillisecondsSinceEpoch(json['sunset'] * 1000)
+        : null;
   }
 
   Map<String, dynamic> toJson() {

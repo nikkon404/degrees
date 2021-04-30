@@ -4,8 +4,13 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
+import 'package:intl/intl.dart';
+
 
 class Utilities {
+  static DateFormat _timeFormat = DateFormat("hh:mm a");
+  static DateFormat _dateFormat = DateFormat("MMM dd");
+
   static Future<bool> isInternetWorking() async {
     bool condition1 = false;
     bool condition2 = false;
@@ -39,6 +44,13 @@ class Utilities {
     return condition1 & condition2;
   }
 
+
+  static String formatTime(DateTime time){
+    return _timeFormat.format(time);
+  }
+   static String formatDate(DateTime date){
+    return _dateFormat.format(date);
+  }
   static void showInToast(String message,
       {ToastType toastType, int toastPos = 2}) {
     FlutterFlexibleToast.cancel();

@@ -1,8 +1,6 @@
 import 'primary.dart';
-import 'rain.dart';
 import 'weather.dart';
 import 'wind.dart';
-import 'clouds.dart';
 import 'sys.dart';
 
 class WeatherData {
@@ -11,9 +9,7 @@ class WeatherData {
   Primary primary;
   int visibility;
   Wind wind;
-  Rain rain;
-  Clouds clouds;
-  int dt;
+  DateTime dt;
   Sys sys;
   int timezone;
 
@@ -22,8 +18,6 @@ class WeatherData {
       this.primary,
       this.visibility,
       this.wind,
-      this.rain,
-      this.clouds,
       this.dt,
       this.sys,
       this.timezone});
@@ -35,14 +29,11 @@ class WeatherData {
         weather.add(new Weather.fromJson(v));
       });
     }
-    primary = json['main'] != null ? new Primary.fromJson(json['main']) : null;
+    primary = Primary.fromJson(json['main']);
     visibility = json['visibility'];
-    wind = json['wind'] != null ? new Wind.fromJson(json['wind']) : null;
-    rain = json['rain'] != null ? new Rain.fromJson(json['rain']) : null;
-    clouds =
-        json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
-    dt = json['dt'];
-    sys = json['sys'] != null ? new Sys.fromJson(json['sys']) : null;
+    wind = Wind.fromJson(json['wind']);
+    dt = DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000);
+    if (json['sys'] != null) sys = Sys.fromJson(json['sys']);
     timezone = json['timezone'];
     cityName = json['name'];
   }
@@ -59,12 +50,7 @@ class WeatherData {
     if (this.wind != null) {
       data['wind'] = this.wind.toJson();
     }
-    if (this.rain != null) {
-      data['rain'] = this.rain.toJson();
-    }
-    if (this.clouds != null) {
-      data['clouds'] = this.clouds.toJson();
-    }
+
     data['dt'] = this.dt;
     if (this.sys != null) {
       data['sys'] = this.sys.toJson();

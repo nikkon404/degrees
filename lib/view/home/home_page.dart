@@ -1,6 +1,6 @@
 import 'package:degrees/core/controller/weather_controller.dart';
 import 'package:degrees/core/utils/utils.dart';
-import 'package:degrees/view/home/weather_view.dart';
+import 'package:degrees/view/home/weather/weather_view.dart';
 import 'package:degrees/view/widgets/resueables/loading_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,18 +10,6 @@ class HomePage extends StatelessWidget {
   final controller = Get.find<WeatherController>();
   @override
   Widget build(BuildContext context) {
-    Widget viewLoader() {
-      if (controller.isloading) {
-        return loadingIcon();
-      } else {
-        if (controller.data.success) {
-          return WeatherView(data: controller.data.response);
-        } else {
-          return Text(controller.data.message);
-        }
-      }
-    }
-
     _search(String city) async {
       FocusScope.of(context).unfocus();
       var isConnected = await Utilities.isInternetWorking();
@@ -35,28 +23,81 @@ class HomePage extends StatelessWidget {
       }
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          excludeHeaderSemantics: true,
-          backgroundColor: Colors.transparent,
-          title: TextField(
-            onSubmitted: _search,
-            decoration: InputDecoration(
-              prefixIcon: Hero(tag: 'icon', child: Icon(Icons.location_city)),
-              labelText: 'City Name',
-            ),
-            controller: _searchController,
-          ),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () => (_searchController.clear()))
-          ],
+    Widget searchField() {
+      return TextField(
+        onSubmitted: _search,
+        decoration: InputDecoration(
+          prefixIcon: Hero(tag: 'icon', child: Icon(Icons.location_city)),
+          labelText: 'City Name',
         ),
-        body: GetBuilder<WeatherController>(
-          builder: (_) {
-            return Center(child: viewLoader());
-          },
-        ));
+        controller: _searchController,
+      );
+    }
+
+    Widget errorView(String msg) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              msg.contains('not found') ? Icons.location_city : Icons.warning,
+              size: 80,
+            ),
+          ),
+          Text(msg, textScaleFactor: 1.5),
+        ],
+      );
+    }
+
+    Widget viewLoader() {
+      if (controller.isloading || controller.data == null) {
+        return loadingIcon();
+      } else {
+        if (controller.data.success) {
+          return WeatherView();
+        } else {
+          return errorView(controller.data.message);
+        }
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        excludeHeaderSemantics: true,
+        backgroundColor: Colors.transparent,
+        title: searchField(),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () => (_searchController.clear()))
+        ],
+      ),
+      body: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black12, Colors.black])),
+          child: GetBuilder<WeatherController>(
+            builder: (_) {
+              return FutureBuilder<bool>(
+                future: Utilities.isInternetWorking(),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    var connected = snapshot.data;
+                    if (connected) {
+                      return viewLoader();
+                    } else {
+                      return errorView('No Internet Services');
+                    }
+                  }
+                  return loadingIcon();
+                },
+              );
+            },
+          )),
+    );
   }
 }

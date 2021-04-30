@@ -1,4 +1,4 @@
-package com.example.degrees
+package com.nikkon404.degrees
 
 import io.flutter.embedding.android.FlutterActivity
 

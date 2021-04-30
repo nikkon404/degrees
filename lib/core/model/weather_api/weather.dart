@@ -1,3 +1,5 @@
+import 'package:degrees/core/utils/constants.dart';
+
 class Weather {
   String main;
   String description;
@@ -8,7 +10,7 @@ class Weather {
   Weather.fromJson(Map<String, dynamic> json) {
     main = json['main'];
     description = json['description'];
-    icon = json['icon'];
+    icon = APIURLs.iconPrefix + json['icon'] + '@4x.png';
   }
 
   Map<String, dynamic> toJson() {
