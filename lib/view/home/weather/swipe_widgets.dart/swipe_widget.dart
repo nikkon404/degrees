@@ -18,8 +18,8 @@ class SwipeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    final List<Widget> swiperItems = [
-      Column(
+    Widget firstItem() {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FlyIn(
@@ -67,14 +67,17 @@ class SwipeWidget extends StatelessWidget {
             yAxis: false,
           ),
         ],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(22.0),
+      );
+    }
+
+    Widget secondItem() {
+      return Padding(
+        padding: const EdgeInsets.all(18.0),
         child: GridView.count(
             crossAxisCount: 2,
-            childAspectRatio: (4 / 3),
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
+            childAspectRatio: (4 / 2.6),
+            crossAxisSpacing: 1,
+            mainAxisSpacing: 1,
             physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.all(10.0),
             children: [
@@ -91,10 +94,12 @@ class SwipeWidget extends StatelessWidget {
               GridItem('Humidity', data.primary.humidity.toStringAsFixed(0),
                   Assets.humidityIcon),
             ]),
-      )
-    ];
+      );
+    }
+
+    final List<Widget> swiperItems = [firstItem(), secondItem()];
     return Container(
-      height: size.height * 0.48,
+      height: size.height * 0.50,
       child: Swiper(
         autoplay: true,
         autoplayDelay: 10 * 1000,

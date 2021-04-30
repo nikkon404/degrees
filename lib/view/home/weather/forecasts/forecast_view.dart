@@ -59,7 +59,7 @@ class ForecastView extends StatelessWidget {
                         placeholder: (context, url) => loadingIcon(),
                       ),
                       title: Text((Utilities.formatDate(item.dt) +
-                          ' ' +
+                          ' - ' +
                           Utilities.formatTime(item.dt))),
                       trailing:
                           Text(item.primary.temp.toStringAsFixed(0) + '°C'),
