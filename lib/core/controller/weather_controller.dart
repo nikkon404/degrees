@@ -11,7 +11,7 @@ class WeatherController extends GetxController {
   ApiResponse<WeatherData> _weatherData;
   ApiResponse<WeatherData> get data => _weatherData;
   List<WeatherData> todaysData = [];
-  List<WeatherData> foreCast = [];
+  List<WeatherData> forecastData = [];
 
   bool _loading = false;
   bool get isloading => _loading;
@@ -19,7 +19,6 @@ class WeatherController extends GetxController {
   _setLoading(bool val) {
     _loading = val;
     update();
-    print('inside loading');
   }
 
   @override
@@ -44,10 +43,9 @@ class WeatherController extends GetxController {
       if (apiResp.statusCode == 200) {
         _weatherData = ApiResponse(true, 'Weather Data for $cityName fetched.',
             WeatherData.fromJson(jsonObj));
-        print(_weatherData.response.toJson());
+        
         await weatherForcastFor(cityName);
       } else {
-        print(apiResp.body);
         _weatherData = ApiResponse(false, jsonObj['message'], null);
       }
       _setLoading(false);
@@ -71,9 +69,8 @@ class WeatherController extends GetxController {
       List<WeatherData> wList = await list
           .map<WeatherData>((json) => WeatherData.fromJson(json))
           .toList();
-      // print(wList);
       todaysData.clear();
-      foreCast.clear();
+      forecastData.clear();
       wList.forEach((element) {
         var date = element.dt;
 
@@ -82,7 +79,7 @@ class WeatherController extends GetxController {
             date.day == _today.day) {
           todaysData.add(element);
         } else {
-          foreCast.add(element);
+          forecastData.add(element);
         }
       });
     }

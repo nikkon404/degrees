@@ -9,7 +9,6 @@ class TodayView extends StatelessWidget {
   const TodayView({Key key, this.todayData}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('forcast list is ${todayData.length}');
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InputDecorator(
@@ -20,7 +19,10 @@ class TodayView extends StatelessWidget {
           ),
         ),
         child: Container(
-          color: Colors.white10,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.blue.shade600,
+          ),
           height: 100.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -31,19 +33,24 @@ class TodayView extends StatelessWidget {
               return FlyIn(
                 index.toDouble(),
                 Card(
+                    color: Colors.transparent,
                     child: Column(
-                  children: [
-                    Image.network(
-                      item.weather.first.icon,
-                      scale: 4,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(item.primary.temp.toStringAsFixed(0) + ' °C'),
-                    ),
-                    Text(Utilities.formatTime(item.dt)),
-                  ],
-                )),
+                      children: [
+                        Image.network(
+                          item.weather.first.icon,
+                          scale: 4,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                              item.primary.temp.toStringAsFixed(0) + ' °C'),
+                        ),
+                        Text(
+                          Utilities.formatTime(item.dt),
+                          textScaleFactor: 0.6,
+                        ),
+                      ],
+                    )),
               );
             },
           ),

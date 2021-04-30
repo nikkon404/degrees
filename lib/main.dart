@@ -17,7 +17,7 @@ class Degrees extends StatelessWidget {
       title: Constants.APP_NAME,
       theme: ThemeData(
         brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
       ),
       home: SafeArea(child: SplashScreen()),
     );
