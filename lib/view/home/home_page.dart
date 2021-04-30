@@ -10,8 +10,9 @@ class HomePage extends StatelessWidget {
   final controller = Get.find<WeatherController>();
   @override
   Widget build(BuildContext context) {
+    print('test');
     Widget viewLoader() {
-      if (controller.isloading) {
+      if (controller.isloading || controller.data == null) {
         return loadingIcon();
       } else {
         if (controller.data.success) {
@@ -36,27 +37,35 @@ class HomePage extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          excludeHeaderSemantics: true,
-          backgroundColor: Colors.transparent,
-          title: TextField(
-            onSubmitted: _search,
-            decoration: InputDecoration(
-              prefixIcon: Hero(tag: 'icon', child: Icon(Icons.location_city)),
-              labelText: 'City Name',
-            ),
-            controller: _searchController,
+      appBar: AppBar(
+        excludeHeaderSemantics: true,
+        backgroundColor: Colors.transparent,
+        title: TextField(
+          onSubmitted: _search,
+          decoration: InputDecoration(
+            prefixIcon: Hero(tag: 'icon', child: Icon(Icons.location_city)),
+            labelText: 'City Name',
           ),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () => (_searchController.clear()))
-          ],
+          controller: _searchController,
         ),
-        body: GetBuilder<WeatherController>(
-          builder: (_) {
-            return Center(child: viewLoader());
-          },
-        ));
+        actions: [
+          IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () => (_searchController.clear()))
+        ],
+      ),
+      body: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.black12, Colors.black])),
+          child: GetBuilder<WeatherController>(
+            builder: (_) {
+              return viewLoader();
+            },
+          )),
+    );
   }
 }

@@ -6,7 +6,7 @@ class Constants {
 class APIURLs {
   static final String mainUrl = 'api.openweathermap.org';
   static final String endpoint = '/data/2.5/weather';
-  static final String iconPrefix = 'http://openweathermap.org/img/w/';
+  static final String iconPrefix = 'http://openweathermap.org/img/wn/';
 }
 
 class Assets {

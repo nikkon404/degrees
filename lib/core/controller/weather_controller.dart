@@ -46,6 +46,8 @@ class WeatherController extends GetxController {
       }
       _setLoading(false);
     } catch (e) {
+      print(e.toString());
+
       print(e.stackTrace);
       _weatherData = ApiResponse(false, e.toString(), null);
       _setLoading(false);
