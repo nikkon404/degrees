@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         return loadingIcon();
       } else {
         if (controller.data.success) {
-          return WeatherView(data: controller.data.response);
+          return WeatherView();
         } else {
           return Text(controller.data.message);
         }

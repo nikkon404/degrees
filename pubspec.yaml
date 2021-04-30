@@ -35,6 +35,7 @@ dependencies:
   flutter_flexible_toast: ^0.1.4
   flutter_launcher_icons: ^0.9.0
   simple_animations: ^2.2.1
+  intl: ^0.17.0
 
 flutter_icons:
   image_path: "assets/app_icon.png"        

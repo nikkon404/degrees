@@ -13,7 +13,7 @@ class WeatherData {
   Wind wind;
   Rain rain;
   Clouds clouds;
-  int dt;
+  DateTime dt;
   Sys sys;
   int timezone;
 
@@ -41,7 +41,7 @@ class WeatherData {
     rain = json['rain'] != null ? new Rain.fromJson(json['rain']) : null;
     clouds =
         json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
-    dt = json['dt'] * 1000;
+    dt = DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000);
     sys = json['sys'] != null ? new Sys.fromJson(json['sys']) : null;
     timezone = json['timezone'];
     cityName = json['name'];
