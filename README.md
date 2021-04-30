@@ -1,16 +1,47 @@
 # Degrees
+### _Flutter weather app_
 
-A weather app made with flutter
+<img src="assets\app_icon.png" alt="drawing" width="100"/>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+<img src="https://cdn.iconscout.com/icon/free/png-256/flutter-2752187-2285004.png" alt="drawing" width="100"/>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Features
+
+- Shows Current weather status of a city
+- Shows Forecast for 5 days
+- Simple yet elegant UI
+- Use of animations
+- State management with Get
+
+## Screenshots
+<img src="screenshots/ss1.png" alt="drawing" width="190"/>
+<img src="screenshots/ss2.png" alt="drawing" width="190"/>
+<img src="screenshots/ss3.png" alt="drawing" width="190"/>
+
+
+
+
+## Installation
+
+Degrees requires [Flutter](https://flutter.dev/) v2.0+ to run.
+Clone the repo first
+```sh
+git clone https://github.com/nikkon404/degrees.git
+```
+
+Goto the project directory
+```sh
+cd degrees
+```
+
+
+Then run the following commands:
+
+```sh
+flutter pub get
+flutter run
+```
