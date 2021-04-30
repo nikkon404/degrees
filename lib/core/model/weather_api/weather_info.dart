@@ -1,7 +1,6 @@
 import 'primary.dart';
 import 'weather.dart';
 import 'wind.dart';
-import 'clouds.dart';
 import 'sys.dart';
 
 class WeatherData {
@@ -10,7 +9,6 @@ class WeatherData {
   Primary primary;
   int visibility;
   Wind wind;
-  Clouds clouds;
   DateTime dt;
   Sys sys;
   int timezone;
@@ -20,7 +18,6 @@ class WeatherData {
       this.primary,
       this.visibility,
       this.wind,
-      this.clouds,
       this.dt,
       this.sys,
       this.timezone});
@@ -35,7 +32,6 @@ class WeatherData {
     primary = Primary.fromJson(json['main']);
     visibility = json['visibility'];
     wind = Wind.fromJson(json['wind']);
-    clouds = Clouds.fromJson(json['clouds']);
     dt = DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000);
     if (json['sys'] != null) sys = Sys.fromJson(json['sys']);
     timezone = json['timezone'];
@@ -55,9 +51,6 @@ class WeatherData {
       data['wind'] = this.wind.toJson();
     }
 
-    if (this.clouds != null) {
-      data['clouds'] = this.clouds.toJson();
-    }
     data['dt'] = this.dt;
     if (this.sys != null) {
       data['sys'] = this.sys.toJson();

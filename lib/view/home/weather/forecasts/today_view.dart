@@ -13,7 +13,7 @@ class TodayView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InputDecorator(
         decoration: InputDecoration(
-          labelText: 'Today',
+          labelText: 'Later today',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -24,36 +24,54 @@ class TodayView extends StatelessWidget {
             color: Colors.blue.shade600,
           ),
           height: 100.0,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemCount: todayData.length,
-            itemBuilder: (BuildContext context, int index) {
-              var item = todayData[index];
-              return FlyIn(
-                index.toDouble(),
-                Card(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        Image.network(
-                          item.weather.first.icon,
-                          scale: 4,
+          child: todayData.isEmpty?
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.info_outline_rounded),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'No data for today.\nPlease come back tomorrow!',
+                          textScaleFactor: 1,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                              item.primary.temp.toStringAsFixed(0) + ' °C'),
-                        ),
-                        Text(
-                          Utilities.formatTime(item.dt),
-                          textScaleFactor: 0.6,
-                        ),
-                      ],
-                    )),
-              );
-            },
-          ),
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: todayData.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = todayData[index];
+                    return FlyIn(
+                      index.toDouble(),
+                      Card(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              Image.network(
+                                item.weather.first.icon,
+                                scale: 4,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                    item.primary.temp.toStringAsFixed(0) +
+                                        ' °C'),
+                              ),
+                              Text(
+                                Utilities.formatTime(item.dt),
+                                textScaleFactor: 0.6,
+                              ),
+                            ],
+                          )),
+                    );
+                  },
+                ),
         ),
       ),
     );

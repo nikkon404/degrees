@@ -34,6 +34,22 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    Widget errorView(String msg) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              msg.contains('not found') ? Icons.location_city : Icons.warning,
+              size: 80,
+            ),
+          ),
+          Text(msg, textScaleFactor: 1.5),
+        ],
+      );
+    }
+
     Widget viewLoader() {
       if (controller.isloading || controller.data == null) {
         return loadingIcon();
@@ -41,13 +57,9 @@ class HomePage extends StatelessWidget {
         if (controller.data.success) {
           return WeatherView();
         } else {
-          return Text(controller.data.message);
+          return errorView(controller.data.message);
         }
       }
-    }
-
-    Widget notConnected() {
-      return Text('Not Connected');
     }
 
     return Scaffold(
@@ -78,7 +90,7 @@ class HomePage extends StatelessWidget {
                     if (connected) {
                       return viewLoader();
                     } else {
-                      return notConnected();
+                      return errorView('No Internet Services');
                     }
                   }
                   return loadingIcon();

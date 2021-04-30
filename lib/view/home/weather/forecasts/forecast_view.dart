@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:degrees/core/model/weather_api/weather_info.dart';
 import 'package:degrees/core/utils/utils.dart';
 import 'package:degrees/view/widgets/resueables/fly_in.dart';
 import 'package:flutter/material.dart';
+import 'package:degrees/view/widgets/resueables/loading_icon.dart';
 
 class ForecastView extends StatelessWidget {
   final List<WeatherData> forecasts;
@@ -52,9 +54,9 @@ class ForecastView extends StatelessWidget {
                   Card(
                     color: Colors.white.withOpacity(0.5),
                     child: ListTile(
-                      leading: Image.network(
-                        item.weather.first.icon,
-                        scale: 4,
+                      leading: CachedNetworkImage(
+                        imageUrl: item.weather.first.icon,
+                        placeholder: (context, url) => loadingIcon(),
                       ),
                       title: Text((Utilities.formatDate(item.dt) +
                           ' ' +
